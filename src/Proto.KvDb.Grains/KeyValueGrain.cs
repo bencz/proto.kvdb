@@ -74,4 +74,40 @@ public class KeyValueGrain : KeyValueGrainBase
             Success = true
         });
     }
+
+    // -------------------------------------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------------------------------------
+    // -------------------------------------------------------------------------------------------------------------------------------------
+    
+    public override Task<HGetMessageResponse> HGet(HGetMessageRequest request)
+    {
+        if (request == null || KillActorRequest)
+        {
+            return Task.FromResult(new HGetMessageResponse()
+            {
+                Success = false,
+                ErrorDescription = "Invalid request or key not found"
+            });
+        }
+        
+        var result = new HGetMessageResponse();
+        result.Success = true;
+        
+        if(request.Keys.Count == 0)
+            return Task.FromResult(result);
+
+        foreach (var key in request.Keys)
+        {
+            var success = ValueDictionary.TryGetValue(key, out var value);
+            result.Values.Add(new HGetMessageResponse.Types.HGetGetKeyResult()
+            {
+                Success = success,
+                ErrorDescription = success ? null : "Key not found",
+                Key = key,
+                Value = value
+            });
+        }
+        
+        return Task.FromResult(result);
+    }
 }

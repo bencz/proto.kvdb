@@ -23,3 +23,22 @@ message DelMessageResponse {
   bool success = 1;
   google.protobuf.StringValue error_description = 2;
 }
+
+// ---------------------------------------------------------------------------------------------------
+
+message HGetMessageRequest {
+  repeated string keys = 1;
+}
+
+message HGetMessageResponse {
+  message HGetGetKeyResult {
+    bool success = 1;
+    google.protobuf.StringValue error_description = 2;
+    string key = 3;
+    string value = 4;
+  }
+
+  bool success = 1;
+  google.protobuf.StringValue error_description = 2;
+  repeated HGetGetKeyResult values = 3;
+}

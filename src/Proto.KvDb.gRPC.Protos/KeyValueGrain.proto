@@ -9,4 +9,7 @@ service KeyValueGrain {
   rpc Get(google.protobuf.Empty) returns (GetMessageResponse);
   rpc Set(SetMessageRequest) returns (SetMessageResponse);
   rpc Del(google.protobuf.Empty) returns (DelMessageResponse);
+  
+  // ------------------------------------------------------------------------------------------
+  rpc HGet(HGetMessageRequest) returns (HGetMessageResponse);
 }
