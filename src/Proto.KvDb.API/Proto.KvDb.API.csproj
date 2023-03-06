@@ -38,9 +38,9 @@
     </ItemGroup>
     
     <ItemGroup>
-      <ProjectReference Include="..\..\Proto.KvDb.Grains\Proto.KvDb.Grains.csproj" />
-      <ProjectReference Include="..\..\Proto.KvDb.gRPC.Protos\Proto.KvDb.gRPC.Protos.csproj" />
-      <ProjectReference Include="..\..\Proto.KvDb.PubSub\Proto.KvDb.PubSub.csproj" />
+      <ProjectReference Include="..\Proto.KvDb.Grains\Proto.KvDb.Grains.csproj" />
+      <ProjectReference Include="..\Proto.KvDb.gRPC.Protos\Proto.KvDb.gRPC.Protos.csproj" />
+      <ProjectReference Include="..\Proto.KvDb.PubSub\Proto.KvDb.PubSub.csproj" />
     </ItemGroup>
 
 </Project>

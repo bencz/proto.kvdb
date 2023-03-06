@@ -2,11 +2,11 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proto.KvDb.API", "src\Proto.KvDb.API\Proto.KvDb.API.csproj", "{D354145C-4A14-4A97-807B-25BC10576B6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proto.KvDb.PubSub", "Proto.KvDb.PubSub\Proto.KvDb.PubSub.csproj", "{2FCF8AA1-098F-46EC-B8AA-0D3419D05C59}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proto.KvDb.PubSub", "src\Proto.KvDb.PubSub\Proto.KvDb.PubSub.csproj", "{2FCF8AA1-098F-46EC-B8AA-0D3419D05C59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proto.KvDb.gRPC.Protos", "Proto.KvDb.gRPC.Protos\Proto.KvDb.gRPC.Protos.csproj", "{433709A8-ECF1-45B2-8268-B4F80A90347F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proto.KvDb.gRPC.Protos", "src\Proto.KvDb.gRPC.Protos\Proto.KvDb.gRPC.Protos.csproj", "{433709A8-ECF1-45B2-8268-B4F80A90347F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proto.KvDb.Grains", "Proto.KvDb.Grains\Proto.KvDb.Grains.csproj", "{FD3279F6-A033-4760-BB4F-8B8CCC31061E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proto.KvDb.Grains", "src\Proto.KvDb.Grains\Proto.KvDb.Grains.csproj", "{FD3279F6-A033-4760-BB4F-8B8CCC31061E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
