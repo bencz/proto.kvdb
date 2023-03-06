@@ -110,4 +110,21 @@ public class KeyValueGrain : KeyValueGrainBase
         
         return Task.FromResult(result);
     }
+
+    public override Task<HSetMessageResponse> HSet(HSetMessageRequest request)
+    {
+        if (request == null || KillActorRequest)
+        {
+            return Task.FromResult(new HSetMessageResponse()
+            {
+                Success = false,
+                ErrorDescription = "Invalid request or key not found"
+            });
+        }
+
+        return Task.FromResult(new HSetMessageResponse()
+        {
+            Success = true
+        });
+    }
 }

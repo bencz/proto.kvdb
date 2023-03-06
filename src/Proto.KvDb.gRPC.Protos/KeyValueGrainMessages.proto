@@ -42,3 +42,19 @@ message HGetMessageResponse {
   google.protobuf.StringValue error_description = 2;
   repeated HGetGetKeyResult values = 3;
 }
+
+// ---------------------------------------------------------------------------------------------------
+
+message HSetMessageRequest {
+  message HSetKeyValue {
+    string key = 1;
+    google.protobuf.StringValue value = 2;
+  }
+  
+  repeated HSetKeyValue keys_values = 1;
+}
+
+message HSetMessageResponse {
+  bool success = 1;
+  google.protobuf.StringValue error_description = 2;  
+}

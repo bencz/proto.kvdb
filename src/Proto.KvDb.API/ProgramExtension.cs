@@ -54,14 +54,6 @@ public static class ProgramExtension
             kestrel.Listen(IPAddress.Any, Convert.ToInt32(Environment.GetEnvironmentVariable("GRPC_PORT") ?? "51000"), o => o.Protocols = HttpProtocols.Http1AndHttp2);
         });
     }
-    
-    public static void AddCors(this WebApplicationBuilder builder)
-    {
-        builder.Services.AddCors(options => 
-        {
-            options.AddPolicy(name: CorsPolicyName, b => b.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-        });
-    }
 
     public static void AddCustomHealthChecks(this WebApplicationBuilder builder)
     {
@@ -97,10 +89,10 @@ public static class ProgramExtension
         });
     }
     
-    public static void UseCustomSwagger(this WebApplication app, WebApplicationBuilder builder)
+    public static void UseCustomSwagger(this WebApplication app)
     {
         app.UseSwagger();
-        app.UseSwaggerUI(c => { c.SwaggerEndpoint("swagger/v1/swagger.json", $"{ApplicationName} V1"); });
+        app.UseSwaggerUI(c => { c.SwaggerEndpoint("/swagger/v1/swagger.json", $"{ApplicationName} V1"); });
     }
 
     public static void MapEndpoints(this WebApplication app)
