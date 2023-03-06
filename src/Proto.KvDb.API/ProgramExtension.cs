@@ -5,8 +5,10 @@ using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.OpenApi.Models;
 using Proto.KvDb.API.GrpcService;
+using Proto.KvDb.API.HostedServices;
 using Proto.Remote.HealthChecks;
 using Serilog;
+using Serilog.Templates;
 
 namespace Proto.KvDb.API;
 
@@ -17,15 +19,16 @@ public static class ProgramExtension
     
     public static void AddCustomSerilog(this WebApplicationBuilder builder)
     {
+        var expressionTemplate = new ExpressionTemplate(
+            "[{@t:yyyy-MM-dd HH:mm:ss} {@l:u3} {SourceContext}] CorrelationId={CorrelationId} RequestPath={RequestPath}{#each name, value in Rest()} {name}={value}{#end}    Msg={@m:lj}    \n{@x}");
+
         Serilog.Log.Logger = new LoggerConfiguration()
-            .MinimumLevel.Override("Microsoft", builder.Environment.IsDevelopment()
-                    ? Serilog.Events.LogEventLevel.Debug
-                    : Serilog.Events.LogEventLevel.Warning)
             .MinimumLevel.Override("Microsoft", Serilog.Events.LogEventLevel.Warning)
             .Enrich.FromLogContext()
             .Enrich.WithCorrelationId()
             .Enrich.WithCorrelationIdHeader()
             .ReadFrom.Configuration(builder.Configuration)
+            .WriteTo.Console(expressionTemplate)
             .CreateLogger();
 
         builder.Services.AddHttpContextAccessor();
@@ -52,8 +55,13 @@ public static class ProgramExtension
         builder.WebHost.UseKestrel(kestrel =>
         {
             kestrel.Listen(IPAddress.Any, Convert.ToInt32(Environment.GetEnvironmentVariable("HTTP_PORT") ?? "80"), o => o.Protocols = HttpProtocols.Http1AndHttp2);
-            kestrel.Listen(IPAddress.Any, Convert.ToInt32(Environment.GetEnvironmentVariable("GRPC_PORT") ?? "51000"), o => o.Protocols = HttpProtocols.Http1AndHttp2);
+            kestrel.Listen(IPAddress.Any, Convert.ToInt32(Environment.GetEnvironmentVariable("GRPC_PORT") ?? "51000"), o => o.Protocols = HttpProtocols.Http2);
         });
+    }
+    
+    public static void AddHostedServices(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddHostedService<ActorSystemClusterHostedService>();
     }
 
     public static void AddCustomHealthChecks(this WebApplicationBuilder builder)

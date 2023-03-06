@@ -11,7 +11,7 @@ public class KeyValueGrain : KeyValueGrainBase
     private bool KillActorRequest { get; set; }
 
     private const string DefaultKey = "^~";
-    
+
     public KeyValueGrain(
         IContext context,
         ILogger<KeyValueGrain> logger)
@@ -53,9 +53,17 @@ public class KeyValueGrain : KeyValueGrainBase
         }
         else
         {
-            var success = ValueDictionary.TryAdd(DefaultKey, request.Value);
-            result.Success = success;
-            result.ErrorDescription = success ? null : "Fail to add the value";
+            if (ValueDictionary.ContainsKey(DefaultKey))
+            {
+                ValueDictionary[DefaultKey] = request.Value;
+                result.Success = true;
+            }
+            else
+            {
+                var success = ValueDictionary.TryAdd(DefaultKey, request.Value);
+                result.Success = success;
+                result.ErrorDescription = success ? null : "Fail to add the value";
+            }
         }
 
         return Task.FromResult(result);

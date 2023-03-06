@@ -23,7 +23,7 @@ public class KeyValueDbGrpcService : KeyValueDbService.KeyValueDbServiceBase
         return await _actorSystem
             .Cluster()
             .GetKeyValueGrain(request.Key)
-            .Get(CancellationTokens.WithTimeout(TimeSpan.FromSeconds(1)));
+            .Get(CancellationTokens.FromSeconds(TimeSpan.FromSeconds(1)));
     }
 
     public override async Task<SetMessageResponse> Set(SetRequest request, ServerCallContext context)
@@ -34,6 +34,6 @@ public class KeyValueDbGrpcService : KeyValueDbService.KeyValueDbServiceBase
             .Set(new SetMessageRequest()
             {
                 Value = request.Value
-            },CancellationTokens.WithTimeout(TimeSpan.FromSeconds(1)));
+            },CancellationTokens.FromSeconds(TimeSpan.FromSeconds(1)));
     }
 }

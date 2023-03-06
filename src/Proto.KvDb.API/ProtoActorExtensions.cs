@@ -22,7 +22,7 @@ public static class ProtoActorExtensions
     {
         builder.Services.AddSingleton(serviceProvider =>
         {
-            const string clusterName = "Proto.kvdb";
+            const string clusterName = "ProtoKvDb";
             
             var actorSystemConfig = ActorSystemConfig
                 .Setup()
@@ -73,12 +73,12 @@ public static class ProtoActorExtensions
 
     private static ClusterConfig ConfigureGrainProps(this ClusterConfig clusterConfig, IServiceProvider serviceProvider)
     {
-        var keyValueProps = Props.FromProducer(() =>
-                new KeyValueGrainActor((c, _) => ActivatorUtilities.CreateInstance<KeyValueGrain>(serviceProvider, c)))
+        var kvDbProps = Props.FromProducer(() =>
+            new KeyValueGrainActor((c, _) => ActivatorUtilities.CreateInstance<KeyValueGrain>(serviceProvider, c)))
             .WithTracing();
-
+        
         return clusterConfig
-            .WithClusterKind(KeyValueGrainActor.Kind, keyValueProps);
+            .WithClusterKind(KeyValueGrainActor.Kind, kvDbProps);
     }
 
     private static (GrpcNetRemoteConfig, IClusterProvider) ConfigureClustering(IConfiguration config)

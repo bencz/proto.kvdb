@@ -4,6 +4,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.ConfigureAppSettings();
 builder.ConfigureKestrel();
 builder.AddCustomSerilog();
+builder.AddHostedServices();
 builder.AddCustomSwagger();
 builder.AddCustomHealthChecks();
 builder.AddActorSystem();
