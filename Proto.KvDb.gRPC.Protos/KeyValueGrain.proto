@@ -1,0 +1,12 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Proto.KvDb.Grains";
+
+import "KeyValueGrainMessages.proto";
+import "google/protobuf/empty.proto";
+
+service KeyValueGrain {
+  rpc Get(google.protobuf.Empty) returns (GetMessageResponse);
+  rpc Set(SetMessageRequest) returns (SetMessageResponse);
+  rpc Del(google.protobuf.Empty) returns (DelMessageResponse);
+}

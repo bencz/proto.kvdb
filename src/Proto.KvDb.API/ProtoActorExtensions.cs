@@ -6,6 +6,7 @@ using Proto.Cluster.Partition;
 using Proto.Cluster.PubSub;
 using Proto.Cluster.Testing;
 using Proto.DependencyInjection;
+using Proto.KvDb.Grains;
 using Proto.KvDb.PubSub;
 using Proto.OpenTelemetry;
 using Proto.Remote;
@@ -72,7 +73,12 @@ public static class ProtoActorExtensions
 
     private static ClusterConfig ConfigureGrainProps(this ClusterConfig clusterConfig, IServiceProvider serviceProvider)
     {
-        return clusterConfig;
+        var keyValueProps = Props.FromProducer(() =>
+                new KeyValueGrainActor((c, _) => ActivatorUtilities.CreateInstance<KeyValueGrain>(serviceProvider, c)))
+            .WithTracing();
+
+        return clusterConfig
+            .WithClusterKind(KeyValueGrainActor.Kind, keyValueProps);
     }
 
     private static (GrpcNetRemoteConfig, IClusterProvider) ConfigureClustering(IConfiguration config)
@@ -103,5 +109,6 @@ public static class ProtoActorExtensions
 
     private static GrpcNetRemoteConfig ConfigProtoMessagesMessages(this GrpcNetRemoteConfig grpcNetRemoteConfig)
         => grpcNetRemoteConfig
-            .WithProtoMessages(EmptyReflection.Descriptor);
+            .WithProtoMessages(EmptyReflection.Descriptor)
+            .WithProtoMessages(KeyValueGrainMessagesReflection.Descriptor);
 }

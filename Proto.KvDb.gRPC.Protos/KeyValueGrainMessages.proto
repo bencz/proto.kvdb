@@ -1,0 +1,25 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "Proto.KvDb.Grains";
+
+import "google/protobuf/wrappers.proto";
+
+message GetMessageResponse {
+  bool success = 1;
+  google.protobuf.StringValue error_description = 2;
+  google.protobuf.StringValue value = 3;
+}
+
+message SetMessageRequest {
+  google.protobuf.StringValue value = 1;
+}
+
+message SetMessageResponse {
+  bool success = 1;
+  google.protobuf.StringValue error_description = 2;
+}
+
+message DelMessageResponse {
+  bool success = 1;
+  google.protobuf.StringValue error_description = 2;
+}

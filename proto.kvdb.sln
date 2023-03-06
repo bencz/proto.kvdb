@@ -4,7 +4,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proto.KvDb.API", "src\Proto
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proto.KvDb.PubSub", "Proto.KvDb.PubSub\Proto.KvDb.PubSub.csproj", "{2FCF8AA1-098F-46EC-B8AA-0D3419D05C59}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proto.KvDb.gRPC", "Proto.KvDb.gRPC\Proto.KvDb.gRPC.csproj", "{433709A8-ECF1-45B2-8268-B4F80A90347F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proto.KvDb.gRPC.Protos", "Proto.KvDb.gRPC.Protos\Proto.KvDb.gRPC.Protos.csproj", "{433709A8-ECF1-45B2-8268-B4F80A90347F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proto.KvDb.Grains", "Proto.KvDb.Grains\Proto.KvDb.Grains.csproj", "{FD3279F6-A033-4760-BB4F-8B8CCC31061E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,5 +30,9 @@ Global
 		{433709A8-ECF1-45B2-8268-B4F80A90347F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{433709A8-ECF1-45B2-8268-B4F80A90347F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{433709A8-ECF1-45B2-8268-B4F80A90347F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FD3279F6-A033-4760-BB4F-8B8CCC31061E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FD3279F6-A033-4760-BB4F-8B8CCC31061E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FD3279F6-A033-4760-BB4F-8B8CCC31061E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FD3279F6-A033-4760-BB4F-8B8CCC31061E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
