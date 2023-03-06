@@ -5,6 +5,8 @@ option csharp_namespace = "Proto.KvDb.GrpcService";
 import "KeyValueGrainMessages.proto";
 import "google/protobuf/wrappers.proto";
 
+// ------------------------------------------------------------------------
+
 message GetRequest {
   string key = 1;
 }
@@ -14,7 +16,41 @@ message SetRequest {
   google.protobuf.StringValue value = 2;
 }
 
+message DelRequest {
+  string key = 1;
+}
+
+// ------------------------------------------------------------------------
+
+message HGetRequest {
+  string key = 1;
+  repeated string hash_keys = 2;
+}
+
+message HSetRequest {
+  message hash_key_value {
+    string hash_key = 1;
+    google.protobuf.StringValue hash_value = 2;
+  }
+  
+  string key = 1;
+  repeated hash_key_value hash_keys_values = 2;
+}
+
+message HDelRequest {
+  string key = 1;
+  repeated string hash_keys = 2;
+}
+
+// ------------------------------------------------------------------------
+
 service KeyValueDbService {
   rpc Get(GetRequest) returns (GetMessageResponse);
   rpc Set(SetRequest) returns (SetMessageResponse);
+  rpc Del(DelRequest) returns (DelMessageResponse);
+  
+  // ------------------------------------------------------------------------
+  rpc HGet(HGetRequest) returns (HGetMessageResponse);
+  rpc HSet(HSetRequest) returns (HSetMessageResponse);
+  rpc HDel(HDelRequest) returns (HDelMessageResponse);
 }

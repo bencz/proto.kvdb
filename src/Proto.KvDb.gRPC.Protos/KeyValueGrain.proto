@@ -13,4 +13,5 @@ service KeyValueGrain {
   // ------------------------------------------------------------------------------------------
   rpc HGet(HGetMessageRequest) returns (HGetMessageResponse);
   rpc HSet(HSetMessageRequest) returns (HSetMessageResponse);
+  rpc HDel(HDelMessageRequest) returns (HDelMessageResponse);
 }

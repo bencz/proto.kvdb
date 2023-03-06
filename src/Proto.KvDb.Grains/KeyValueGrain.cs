@@ -98,16 +98,18 @@ public class KeyValueGrain : KeyValueGrainBase
             });
         }
         
-        var result = new HGetMessageResponse();
-        result.Success = true;
-        
+        var result = new HGetMessageResponse
+        {
+            Success = true
+        };
+
         if(request.Keys.Count == 0)
             return Task.FromResult(result);
 
         foreach (var key in request.Keys)
         {
             var success = ValueDictionary.TryGetValue(key, out var value);
-            result.Values.Add(new HGetMessageResponse.Types.HGetGetKeyResult()
+            result.Values.Add(new HGetMessageResponse.Types.HGetKeyResult()
             {
                 Success = success,
                 ErrorDescription = success ? null : "Key not found",
@@ -130,9 +132,41 @@ public class KeyValueGrain : KeyValueGrainBase
             });
         }
 
-        return Task.FromResult(new HSetMessageResponse()
+        var result = new HSetMessageResponse
         {
             Success = true
-        });
+        };
+        
+        if(request.KeysValues.Count == 0)
+            return Task.FromResult(result);
+
+        foreach (var keyValue in request.KeysValues)
+        {
+            var key = keyValue.Key;
+            var value = keyValue.Value;
+            
+            var keyValueInsertResult = new HSetMessageResponse.Types.HSetKeyResult();
+            
+            if (ValueDictionary.ContainsKey(key))
+            {
+                ValueDictionary[DefaultKey] = value;
+                keyValueInsertResult.Success = true;
+            }
+            else
+            {
+                var success = ValueDictionary.TryAdd(key, value);
+                keyValueInsertResult.Success = success;
+                keyValueInsertResult.ErrorDescription = success ? null : "Fail to add the value";
+            }
+            
+            result.Values.Add(keyValueInsertResult);
+        }
+
+        return Task.FromResult(result);
+    }
+
+    public override Task<HDelMessageResponse> HDel(HDelMessageRequest request)
+    {
+        throw new NotImplementedException();
     }
 }
