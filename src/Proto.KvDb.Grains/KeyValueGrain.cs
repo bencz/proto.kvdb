@@ -7,8 +7,10 @@ public class KeyValueGrain : KeyValueGrainBase
 {
     private readonly ILogger<KeyValueGrain> _logger;
     private string Key { get; } 
-    private string Value { get; set; } 
-    private bool DeadKey { get; set; }
+    private Dictionary<string, string> ValueDictionary { get; set; } 
+    private bool KillActorRequest { get; set; }
+
+    private const string DefaultKey = "^~";
     
     public KeyValueGrain(
         IContext context,
@@ -18,23 +20,25 @@ public class KeyValueGrain : KeyValueGrainBase
         _logger = logger;
         
         Key = context.ClusterIdentity()?.Identity;
-        Value = null;
-        DeadKey = false;
+        ValueDictionary = new Dictionary<string, string>();
+        KillActorRequest = false;
     }
 
     public override Task<GetMessageResponse> Get()
     {
-        if (DeadKey == true)
+        if (KillActorRequest)
             return Task.FromResult(new GetMessageResponse()
             {
                 Success = false,
                 ErrorDescription = "Key not found" 
             });
 
+        var success = ValueDictionary.TryGetValue(DefaultKey, out var value);
         return Task.FromResult(new GetMessageResponse()
         {
-            Success = true,
-            Value = Value
+            Success = success,
+            ErrorDescription = success ? null : "Key not found",
+            Value = value
         });
     }
 
@@ -42,15 +46,16 @@ public class KeyValueGrain : KeyValueGrainBase
     {
         var result = new SetMessageResponse();
 
-        if (request == null || DeadKey == true)
+        if (request == null || KillActorRequest)
         {
             result.Success = false;
             result.ErrorDescription = "Invalid request or key not found";
         }
         else
         {
-            Value = request.Value;
-            result.Success = true;
+            var success = ValueDictionary.TryAdd(DefaultKey, request.Value);
+            result.Success = success;
+            result.ErrorDescription = success ? null : "Fail to add the value";
         }
 
         return Task.FromResult(result);
@@ -58,8 +63,9 @@ public class KeyValueGrain : KeyValueGrainBase
 
     public override Task<DelMessageResponse> Del()
     {
-        Value = null;
-        DeadKey = true;
+        ValueDictionary.Clear();
+        ValueDictionary = null;
+        KillActorRequest = true;
         
         Context.Send(Context.Self, new PoisonPill());
 
