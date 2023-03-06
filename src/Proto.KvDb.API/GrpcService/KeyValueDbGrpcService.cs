@@ -36,4 +36,54 @@ public class KeyValueDbGrpcService : KeyValueDbService.KeyValueDbServiceBase
                 Value = request.Value
             },CancellationTokens.FromSeconds(TimeSpan.FromSeconds(1)));
     }
+
+    public override async Task<DelMessageResponse> Del(DelRequest request, ServerCallContext context)
+    {
+        return await _actorSystem
+            .Cluster()
+            .GetKeyValueGrain(request.Key)
+            .Del(CancellationTokens.FromSeconds(TimeSpan.FromSeconds(1)));
+    }
+
+    public override async Task<HGetMessageResponse> HGet(HGetRequest request, ServerCallContext context)
+    {
+        var grainRequest = new HGetMessageRequest();
+        foreach (var getKey in request.HashKeys) 
+            grainRequest.Keys.Add(getKey);
+
+        return await _actorSystem
+            .Cluster()
+            .GetKeyValueGrain(request.Key)
+            .HGet(grainRequest, CancellationTokens.FromSeconds(TimeSpan.FromSeconds(1)));
+    }
+
+    public override async Task<HSetMessageResponse> HSet(HSetRequest request, ServerCallContext context)
+    {
+        var grainRequest = new HSetMessageRequest();
+        foreach (var hashKeyValue in request.HashKeysValues)
+        {
+            grainRequest.KeysValues.Add(new HSetMessageRequest.Types.HSetKeyValue()
+            {
+                Key = hashKeyValue.HashKey,
+                Value = hashKeyValue.HashValue
+            });
+        }
+        
+        return await _actorSystem
+            .Cluster()
+            .GetKeyValueGrain(request.Key)
+            .HSet(grainRequest, CancellationTokens.FromSeconds(TimeSpan.FromSeconds(1)));
+    }
+
+    public override async Task<HDelMessageResponse> HDel(HDelRequest request, ServerCallContext context)
+    {
+        var grainRequest = new HDelMessageRequest();
+        foreach (var getKey in request.HashKeys) 
+            grainRequest.Keys.Add(getKey);
+
+        return await _actorSystem
+            .Cluster()
+            .GetKeyValueGrain(request.Key)
+            .HDel(grainRequest, CancellationTokens.FromSeconds(TimeSpan.FromSeconds(1)));
+    }
 }
