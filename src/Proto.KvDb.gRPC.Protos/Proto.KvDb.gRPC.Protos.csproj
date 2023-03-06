@@ -30,6 +30,10 @@
     </ItemGroup>
 
     <ItemGroup>
+        <Protobuf Include="KeyValueDbService.proto" GrpcServices="Server" ProtoRoot="./" />
+    </ItemGroup>
+    
+    <ItemGroup>
         <Protobuf Include="KeyValueGrainMessages.proto" />
         <ProtoGrain Include="KeyValueGrain.proto" AdditionalImportDirs="./" />
     </ItemGroup>

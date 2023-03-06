@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.OpenApi.Models;
+using Proto.KvDb.API.GrpcService;
 using Proto.Remote.HealthChecks;
 using Serilog;
 
@@ -72,6 +73,7 @@ public static class ProgramExtension
 
     public static void AddApiConfiguration(this WebApplicationBuilder builder)
     {
+        builder.Services.AddGrpc();
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
     }
@@ -100,6 +102,7 @@ public static class ProgramExtension
         app.UseRouting();
         app.UseAuthorization();
         app.MapControllers();
+        app.MapGrpcService<KeyValueDbGrpcService>();
     }
     
     public static void RunApplication(this WebApplication app)

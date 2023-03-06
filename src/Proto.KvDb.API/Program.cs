@@ -14,5 +14,4 @@ app.UseCustomSwagger();
 app.UseRouting();
 app.UseCustomMapHealthChecks();
 app.MapEndpoints();
-app.UseCors();
 app.RunApplication();

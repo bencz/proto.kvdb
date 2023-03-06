@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+option csharp_namespace = "Proto.KvDb.GrpcService";
+
+import "KeyValueGrainMessages.proto";
+import "google/protobuf/wrappers.proto";
+
+message GetRequest {
+  string key = 1;
+}
+
+message SetRequest {
+  string key = 1;
+  google.protobuf.StringValue value = 2;
+}
+
+service KeyValueDbService {
+  rpc Get(GetRequest) returns (GetMessageResponse);
+  rpc Set(SetRequest) returns (SetMessageResponse);
+}
