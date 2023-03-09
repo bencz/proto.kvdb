@@ -20,7 +20,7 @@
     <ItemGroup>
         <PackageReference Include="Proto.Actor" Version="1.1.0" />
         <PackageReference Include="Proto.Cluster" Version="1.1.0" />
-        <PackageReference Include="StackExchange.Redis" Version="2.6.90" />
+        <PackageReference Include="StackExchange.Redis" Version="2.6.96" />
     </ItemGroup>
 
 </Project>
