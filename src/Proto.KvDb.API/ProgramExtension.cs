@@ -1,4 +1,5 @@
-﻿using System.Net;
+﻿using System.IO.Compression;
+using System.Net;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
@@ -81,7 +82,10 @@ public static class ProgramExtension
 
     public static void AddApiConfiguration(this WebApplicationBuilder builder)
     {
-        builder.Services.AddGrpc();
+        builder.Services.AddGrpc(options =>
+        {
+            options.ResponseCompressionLevel = CompressionLevel.Fastest;
+        });
         builder.Services.AddControllers();
         builder.Services.AddEndpointsApiExplorer();
     }

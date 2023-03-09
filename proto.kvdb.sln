@@ -8,6 +8,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proto.KvDb.gRPC.Protos", "s
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proto.KvDb.Grains", "src\Proto.KvDb.Grains\Proto.KvDb.Grains.csproj", "{FD3279F6-A033-4760-BB4F-8B8CCC31061E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proto.KvDb.Tests", "Proto.KvDb.Tests\Proto.KvDb.Tests.csproj", "{A57A3694-FCEA-47C4-885F-F82587CE637E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proto.KvDb.Domain", "Proto.KvDb.Domain\Proto.KvDb.Domain.csproj", "{F9E1855D-7180-4690-AE44-12E30492F740}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -34,5 +38,13 @@ Global
 		{FD3279F6-A033-4760-BB4F-8B8CCC31061E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD3279F6-A033-4760-BB4F-8B8CCC31061E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FD3279F6-A033-4760-BB4F-8B8CCC31061E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A57A3694-FCEA-47C4-885F-F82587CE637E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A57A3694-FCEA-47C4-885F-F82587CE637E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A57A3694-FCEA-47C4-885F-F82587CE637E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A57A3694-FCEA-47C4-885F-F82587CE637E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9E1855D-7180-4690-AE44-12E30492F740}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9E1855D-7180-4690-AE44-12E30492F740}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9E1855D-7180-4690-AE44-12E30492F740}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9E1855D-7180-4690-AE44-12E30492F740}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

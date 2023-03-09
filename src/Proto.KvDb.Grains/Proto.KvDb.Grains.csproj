@@ -18,6 +18,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\..\Proto.KvDb.Domain\Proto.KvDb.Domain.csproj" />
       <ProjectReference Include="..\Proto.KvDb.gRPC.Protos\Proto.KvDb.gRPC.Protos.csproj" />
     </ItemGroup>
 

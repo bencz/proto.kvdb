@@ -30,7 +30,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <Protobuf Include="KeyValueDbService.proto" GrpcServices="Server" ProtoRoot="./" />
+        <Protobuf Include="KeyValueDbService.proto" GrpcServices="Client,Server" ProtoRoot="./" />
     </ItemGroup>
     
     <ItemGroup>

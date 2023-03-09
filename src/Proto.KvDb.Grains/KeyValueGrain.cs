@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 using Proto.Cluster;
+using Proto.KvDb.Domain;
 
 namespace Proto.KvDb.Grains;
 
@@ -9,8 +10,6 @@ public class KeyValueGrain : KeyValueGrainBase
     private string Key { get; } 
     private Dictionary<string, string> ValueDictionary { get; set; } 
     private bool KillActorRequest { get; set; }
-
-    private const string DefaultKey = "^~";
 
     public KeyValueGrain(
         IContext context,
@@ -33,7 +32,7 @@ public class KeyValueGrain : KeyValueGrainBase
                 ErrorDescription = "Key not found" 
             });
 
-        var success = ValueDictionary.TryGetValue(DefaultKey, out var value);
+        var success = ValueDictionary.TryGetValue(ProtoKvDbConstants.DefaultKey, out var value);
         return Task.FromResult(new GetMessageResponse()
         {
             Success = success,
@@ -53,14 +52,14 @@ public class KeyValueGrain : KeyValueGrainBase
         }
         else
         {
-            if (ValueDictionary.ContainsKey(DefaultKey))
+            if (ValueDictionary.ContainsKey(ProtoKvDbConstants.DefaultKey))
             {
-                ValueDictionary[DefaultKey] = request.Value;
+                ValueDictionary[ProtoKvDbConstants.DefaultKey] = request.Value;
                 result.Success = true;
             }
             else
             {
-                var success = ValueDictionary.TryAdd(DefaultKey, request.Value);
+                var success = ValueDictionary.TryAdd(ProtoKvDbConstants.DefaultKey, request.Value);
                 result.Success = success;
                 result.ErrorDescription = success ? null : "Fail to add the value";
             }
@@ -149,7 +148,7 @@ public class KeyValueGrain : KeyValueGrainBase
             
             if (ValueDictionary.ContainsKey(key))
             {
-                ValueDictionary[DefaultKey] = value;
+                ValueDictionary[ProtoKvDbConstants.DefaultKey] = value;
                 keyValueInsertResult.Success = true;
             }
             else
