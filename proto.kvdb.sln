@@ -10,7 +10,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proto.KvDb.Grains", "src\Pr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proto.KvDb.Tests", "Proto.KvDb.Tests\Proto.KvDb.Tests.csproj", "{A57A3694-FCEA-47C4-885F-F82587CE637E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proto.KvDb.Domain", "Proto.KvDb.Domain\Proto.KvDb.Domain.csproj", "{F9E1855D-7180-4690-AE44-12E30492F740}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Proto.KvDb.Domain", "src\Proto.KvDb.Domain\Proto.KvDb.Domain.csproj", "{F9E1855D-7180-4690-AE44-12E30492F740}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
